@@ -27,6 +27,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> body) {
+        
         String code = body.get("code");
         if (code == null) return ResponseEntity.badRequest().body("Missing code");
         return ResponseEntity.ok(authService.loginWithWxCode(code));

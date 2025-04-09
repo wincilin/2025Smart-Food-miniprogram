@@ -1,9 +1,12 @@
 package com.smartfood.backend.security;
 
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +21,10 @@ public class JwtUtil {
     @Value("${jwt.expiration}")
     private long expiration;
 
+    private Key getSigningKey() {
+        return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+    }
+
     // 通过 User 实体生成 token
     public String generateToken(User user) {
         return generateTokenByOpenid(user.getOpenid());
@@ -31,17 +38,17 @@ public class JwtUtil {
                 .setSubject(openid)
                 .setIssuedAt(now)
                 .setExpiration(expiry)
-                .signWith(SignatureAlgorithm.HS256, secret)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256) // 新版 API：需要 Key + 算法
                 .compact();
     }
 
     // 从 token 中获取 openid（而不是 userId）
     public String getOpenid(String token) {
-        return Jwts.parser()
-                .setSigningKey(secret)
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey()) // 新版 API：使用 parserBuilder
+                .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
     }
 }
-
