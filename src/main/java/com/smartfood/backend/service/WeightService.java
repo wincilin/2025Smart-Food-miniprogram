@@ -19,7 +19,6 @@ public class WeightService {
     @Autowired
     private WeightRepository weightRepository;
 
-    //TODO：这里需要添加用户是否存在的判断
     public void saveWeight(WeightRequestDTO weightDTO, User user) {
         WeightData weightData = new WeightData();
         weightData.setWeight(weightDTO.getWeight());

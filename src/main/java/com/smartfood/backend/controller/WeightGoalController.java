@@ -12,6 +12,7 @@ import com.smartfood.backend.dto.weight.WeightGoalRequestDTO;
 import com.smartfood.backend.model.User;
 import com.smartfood.backend.service.WeightGoalService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,12 +26,14 @@ public class WeightGoalController {
     private WeightGoalService weightGoalService;
 
     @PostMapping("/save")
+    @Operation(summary = "保存体重目标", description = "保存当前登录用户的体重初始/当前/目标数据")
     public ResponseEntity<?> saveWeightGoal(@RequestBody @Valid WeightGoalRequestDTO weightGoalDTO, @AuthenticationPrincipal User user) {
         weightGoalService.saveWeightGoal(weightGoalDTO, user);
         return ResponseEntity.ok(new ApiResponse<>(true,"Successfully save weight goal", null));
     }
 
     @GetMapping("/getGoal")
+    @Operation(summary = "获取体重目标", description = "获取当前登录用户的体重初始/当前/目标数据")
     public ResponseEntity<WeightGoalRequestDTO> getWeightGoal(@AuthenticationPrincipal User user) {
         WeightGoalRequestDTO weightGoal = weightGoalService.getWeightGoal(user);
         return ResponseEntity.ok(weightGoal);

@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(name = "WeightRequestDTO", description = "用户提交的体重数据")
+@Schema(name = "WeightRequestDTO", description = "用户提交的体重数据/返回给前端的体重数据")
 public class WeightRequestDTO {
     @NotNull
     @Schema(description = "体重值")
