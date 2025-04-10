@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.smartfood.backend.dto.auth.WxLoginRequestDTO;
 import com.smartfood.backend.service.WxAuthService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -20,16 +22,13 @@ public class AuthController {
     
     @Autowired
     private WxAuthService authService;
-    // @Autowired
-    // private UserService userService;
-    // @Autowired
-    // private JwtUtil jwtUtil;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> body) {
+    public ResponseEntity<?> login(@RequestBody @Valid WxLoginRequestDTO wxLoginRequestDTO) {
         
-        String code = body.get("code");
+        String code = wxLoginRequestDTO.getCode();
         if (code == null) return ResponseEntity.badRequest().body("Missing code");
+        //返回的是json格式，此处不封装DTO了
         return ResponseEntity.ok(authService.loginWithWxCode(code));
     }
 }

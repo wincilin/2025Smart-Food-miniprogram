@@ -1,4 +1,4 @@
-package com.smartfood.backend.dto;
+package com.smartfood.backend.dto.weight;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(name = "WeightResponseDTO", description = "返回给前端的体重记录")
+@Schema(name = "WeightResponseDTO", description = "返回给前端的单条体重记录")
 public class WeightResponseDTO {
     @Schema(description = "记录 ID")
     Long id;

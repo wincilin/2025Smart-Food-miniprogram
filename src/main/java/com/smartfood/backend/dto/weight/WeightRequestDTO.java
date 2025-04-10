@@ -1,4 +1,4 @@
-package com.smartfood.backend.dto;
+package com.smartfood.backend.dto.weight;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

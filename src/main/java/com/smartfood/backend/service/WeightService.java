@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.smartfood.backend.dto.WeightRequestDTO;
-import com.smartfood.backend.dto.WeightResponseDTO;
+import com.smartfood.backend.dto.weight.WeightRequestDTO;
+import com.smartfood.backend.dto.weight.WeightResponseDTO;
 import com.smartfood.backend.model.User;
 import com.smartfood.backend.model.WeightData;
 import com.smartfood.backend.repository.WeightRepository;

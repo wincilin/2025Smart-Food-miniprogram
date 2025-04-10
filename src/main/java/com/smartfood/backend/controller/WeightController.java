@@ -8,8 +8,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.smartfood.backend.dto.WeightRequestDTO;
-import com.smartfood.backend.dto.WeightResponseDTO;
+import com.smartfood.backend.dto.weight.WeightRequestDTO;
+import com.smartfood.backend.dto.weight.WeightResponseDTO;
 import com.smartfood.backend.model.User;
 import com.smartfood.backend.service.WeightService;
 
@@ -25,14 +25,14 @@ public class WeightController {
     @Autowired
     private WeightService weightService;
 
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<String> saveWeight(@RequestBody WeightRequestDTO weightDTO, @AuthenticationPrincipal User user) {
         //TODO:weightService.saveWeight(dto, user);
         
         return ResponseEntity.ok("体重数据保存成功");
     }
 
-    @GetMapping
+    @GetMapping("/getData")
     public ResponseEntity<List<WeightResponseDTO>> getWeight(@AuthenticationPrincipal User user){
         List<WeightResponseDTO> weightList = weightService.getWeights(user);
         return ResponseEntity.ok(weightList);

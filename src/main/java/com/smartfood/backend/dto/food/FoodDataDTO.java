@@ -1,4 +1,4 @@
-package com.smartfood.backend.dto;
+package com.smartfood.backend.dto.food;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

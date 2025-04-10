@@ -1,8 +1,9 @@
-package com.smartfood.backend.dto;
+package com.smartfood.backend.dto.auth;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 /**
@@ -10,7 +11,8 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class TokenResponseDTO {
+@NoArgsConstructor
+public class WxAuthResponseDTO {
     
     @NotNull
     String token;
