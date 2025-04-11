@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.smartfood.backend.dto.FoodAnalysisResult;
 import com.smartfood.backend.service.PhotoAnalysisService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class PhotoController {
     private final PhotoAnalysisService photoAnalysisService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Map<String, Object>> analyzePhoto(@RequestPart("file") MultipartFile file) {
+    public ResponseEntity<?> analyzePhoto(@RequestPart("file") MultipartFile file) {
         try {
             if (file.isEmpty()) {
                 return ResponseEntity.badRequest().body(Map.of(
@@ -49,8 +50,11 @@ public class PhotoController {
                 ));
             }
 
-            Map<String, Object> result = photoAnalysisService.analyzeFoodImage(file);
-            return ResponseEntity.ok(result);
+            Map<String, Object> rawResult = photoAnalysisService.analyzeFoodImage(file);
+            FoodAnalysisResult result = new FoodAnalysisResult();
+            // 这里可以添加结果转换逻辑
+            
+            return ResponseEntity.ok(rawResult);
         } catch (Exception e) {
             log.error("Error analyzing photo: {}", e.getMessage());
             return ResponseEntity.badRequest().body(Map.of(

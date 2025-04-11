@@ -35,6 +35,9 @@ public class PhotoAnalysisService {
     @Value("${baidu.ai.api.dish.url}")
     private String dishUrl;
 
+    @Value("${baidu.ai.api.top.num:5}")
+    private int topNum;
+
     private final RestTemplate restTemplate;
 
     private String getAccessToken() {
@@ -77,7 +80,7 @@ public class PhotoAnalysisService {
             // Prepare request
             MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
             params.add("image", base64Image);
-            params.add("top_num", "1");
+            params.add("top_num", String.valueOf(topNum));
             
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -91,7 +94,7 @@ public class PhotoAnalysisService {
                 Map.class
             );
 
-            log.info("Food image analysis completed successfully");
+            log.info("Food image analysis completed successfully with {} results", topNum);
             return response;
         } catch (IOException e) {
             log.error("Error reading image file: {}", e.getMessage());
