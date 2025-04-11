@@ -10,12 +10,15 @@ import com.alibaba.fastjson.JSONObject;
 import com.smartfood.backend.model.User;
 import com.smartfood.backend.repository.UserRepository;
 import com.smartfood.backend.security.JwtUtil;
+import com.smartfood.backend.security.LoginUser;
 
 import lombok.RequiredArgsConstructor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -82,6 +85,12 @@ public class WxAuthService {
             newUser.setUserName("未命名用户");
             return userRepository.save(newUser);
         });
+
+        // 注入登录态 
+        LoginUser loginUser = new LoginUser(user);
+        UsernamePasswordAuthenticationToken authentication =
+            new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // 签发 JWT
         String token = jwtUtil.generateToken(user);

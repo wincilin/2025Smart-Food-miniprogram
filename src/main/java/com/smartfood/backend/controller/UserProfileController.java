@@ -10,6 +10,7 @@ import com.smartfood.backend.dto.ApiResponse;
 import com.smartfood.backend.dto.user.UpdateUserProfileDTO;
 import com.smartfood.backend.dto.user.UserInfoDTO;
 import com.smartfood.backend.model.User;
+import com.smartfood.backend.security.LoginUser;
 import com.smartfood.backend.service.UserProfileService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,7 +37,8 @@ public class UserProfileController {
 
     @PostMapping("/info")
     @Operation(summary = "获取用户信息", description = "获取当前登录用户的个人信息")
-    public ResponseEntity<UserInfoDTO> getInfo(@AuthenticationPrincipal User user) {
+    public ResponseEntity<UserInfoDTO> getInfo(@AuthenticationPrincipal LoginUser loginUser) {
+        User user = loginUser.getUser();
         UserInfoDTO userInfo = new UserInfoDTO();
         userInfo.setNickName(user.getUserName());
         userInfo.setBirthday(user.getBirthday());
@@ -53,7 +55,8 @@ public class UserProfileController {
     @PostMapping("/update")
     @Operation(summary = "更新用户信息", description = "更新当前登录用户的个人信息")
     public ResponseEntity<?> updateInfo(@RequestBody @Valid UpdateUserProfileDTO updateUserProfileDTO,
-        @AuthenticationPrincipal User user) {
+        @AuthenticationPrincipal LoginUser loginUser) {
+            User user = loginUser.getUser();
             userProfileService.updateUserProfile(updateUserProfileDTO, user);
             return ResponseEntity.ok(new ApiResponse<>(true, "Successfully update profile", null));
     }
