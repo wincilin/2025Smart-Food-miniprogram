@@ -2,7 +2,6 @@ package com.smartfood.backend.controller;
 
 import java.util.Map;
 import org.springframework.http.MediaType;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,13 +9,54 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.smartfood.backend.service.PhotoAnalysisService;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping("/api/photo")
+@RequiredArgsConstructor
 public class PhotoController {
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Map<String, Object>> analyzePhoto(@RequestPart("file") MultipartFile file){
-        return null;
-        //TODO: 1. 调用第三方接口进行图片分析。。。。
+    
+    private final PhotoAnalysisService photoAnalysisService;
 
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Map<String, Object>> analyzePhoto(@RequestPart("file") MultipartFile file) {
+        try {
+            if (file.isEmpty()) {
+                return ResponseEntity.badRequest().body(Map.of(
+                    "error", "File is empty",
+                    "message", "Please upload a valid image file"
+                ));
+            }
+
+            // 检查文件类型
+            String contentType = file.getContentType();
+            if (contentType == null || !contentType.startsWith("image/")) {
+                return ResponseEntity.badRequest().body(Map.of(
+                    "error", "Invalid file type",
+                    "message", "Please upload an image file"
+                ));
+            }
+
+            // 检查文件大小（例如限制为5MB）
+            if (file.getSize() > 5 * 1024 * 1024) {
+                return ResponseEntity.badRequest().body(Map.of(
+                    "error", "File too large",
+                    "message", "File size should be less than 5MB"
+                ));
+            }
+
+            Map<String, Object> result = photoAnalysisService.analyzeFoodImage(file);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            log.error("Error analyzing photo: {}", e.getMessage());
+            return ResponseEntity.badRequest().body(Map.of(
+                "error", "Failed to analyze photo",
+                "message", e.getMessage()
+            ));
+        }
     }
 }

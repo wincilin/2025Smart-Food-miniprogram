@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Food Image Analysis Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .upload-container {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .result-container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Food Image Analysis Test</h1>
+    
+    <div class="upload-container">
+        <input type="file" id="imageInput" accept="image/*">
+        <button onclick="uploadImage()">Analyze Image</button>
+    </div>
+
+    <div class="result-container">
+        <h2>Analysis Result:</h2>
+        <pre id="result"></pre>
+    </div>
+
+    <script>
+        function uploadImage() {
+            const fileInput = document.getElementById('imageInput');
+            const resultElement = document.getElementById('result');
+            
+            if (!fileInput.files[0]) {
+                alert('Please select an image first');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            resultElement.textContent = 'Analyzing...';
+
+            fetch('/api/photo', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                resultElement.textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                resultElement.textContent = 'Error: ' + error.message;
+            });
+        }
+    </script>
+</body>
+</html> 
