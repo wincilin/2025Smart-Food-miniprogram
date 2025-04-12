@@ -12,8 +12,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class WxAuthResponseDTO {
+public class WxLoginResponseDTO {
     
     @NotNull
     String token;
+
+    @NotNull
+    String openid;
+
+    @NotNull
+    boolean if_first_login = false; // 是否第一次登录
 }

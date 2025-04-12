@@ -23,6 +23,17 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/login").permitAll() //放行登录接口
+                .requestMatchers("/api/food/count").permitAll() //放行食物数量接口
+                .requestMatchers("/api/food/list").permitAll() //放行食物列表接口
+                .requestMatchers("/api/photo").permitAll() //放行照片分析接口
+                .requestMatchers(
+                        "/swagger-ui/**",
+                        "/swagger-ui.html",
+                        "/v3/api-docs/**",
+                        "/v2/api-docs/**",
+                        "/swagger-resources/**",
+                        "/webjars/**"
+                    ).permitAll() // 放行 Swagger 相关接口
                 .anyRequest().authenticated()             // 其他接口需要 token
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // 加入你的 JWT 过滤器

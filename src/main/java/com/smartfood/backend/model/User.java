@@ -37,7 +37,9 @@ public class User {
 
     private String gender = "未知";
 
-    private LocalDate birthday = LocalDate.of(2000, 1, 1);
+    private LocalDate birthdate = LocalDate.of(2000, 1, 1);
+
+    private Double height = 170.0; // 身高，单位 cm
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WeightData> weightDataList = new ArrayList<>();

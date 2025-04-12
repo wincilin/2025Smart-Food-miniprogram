@@ -1,12 +1,11 @@
 package com.smartfood.backend.service;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import javax.net.ssl.*;
 import java.security.cert.X509Certificate;
 
 import com.alibaba.fastjson.JSONObject;
+import com.smartfood.backend.dto.auth.WxLoginResponseDTO;
 import com.smartfood.backend.model.User;
 import com.smartfood.backend.repository.UserRepository;
 import com.smartfood.backend.security.JwtUtil;
@@ -34,7 +33,7 @@ public class WxAuthService {
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
 
-    public Map<String, Object> loginWithWxCode(String code) {
+    public WxLoginResponseDTO loginWithWxCode(String code) {
         System.out.println("接收到登录请求！");
 
         // mock 登录逻辑
@@ -42,9 +41,10 @@ public class WxAuthService {
             System.out.println("进入 MOCK 登录分支");
             String mockOpenid = "mock-openid-123";
             String token = jwtUtil.generateTokenByOpenid(mockOpenid);
-            Map<String, Object> result = new HashMap<>();
-            result.put("token", token);
-            result.put("openid", mockOpenid);
+            WxLoginResponseDTO result = new WxLoginResponseDTO();
+            result.setToken(token);
+            result.setOpenid(mockOpenid);
+            result.setIf_first_login(true);
             return result;
         }
 
@@ -78,11 +78,13 @@ public class WxAuthService {
             throw new RuntimeException("openid 获取失败，返回内容：" + responseStr);
         }
 
+        WxLoginResponseDTO result = new WxLoginResponseDTO();
         // 查找或创建用户
         User user = userRepository.findByOpenid(openid).orElseGet(() -> {
             User newUser = new User();
             newUser.setOpenid(openid);
             newUser.setUserName("未命名用户");
+            result.setIf_first_login(true); // 第一次登录,否则会默认为false
             return userRepository.save(newUser);
         });
 
@@ -94,9 +96,9 @@ public class WxAuthService {
 
         // 签发 JWT
         String token = jwtUtil.generateToken(user);
-        Map<String, Object> result = new HashMap<>();
-        result.put("token", token);
-        result.put("openid", openid);
+        
+        result.setToken(token);
+        result.setOpenid(openid);
 
         return result;
     }

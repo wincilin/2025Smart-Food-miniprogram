@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.smartfood.backend.dto.auth.WxLoginResponseDTO;
 import com.smartfood.backend.dto.auth.WxLoginRequestDTO;
 import com.smartfood.backend.service.WxAuthService;
 
@@ -28,7 +29,8 @@ public class AuthController {
         
         String code = wxLoginRequestDTO.getCode();
         if (code == null) return ResponseEntity.badRequest().body("Missing code");
-        //返回的是json格式，此处不封装DTO了
-        return ResponseEntity.ok(authService.loginWithWxCode(code));
+        
+        WxLoginResponseDTO wxAuthResponseDTO = authService.loginWithWxCode(code);
+        return ResponseEntity.ok(wxAuthResponseDTO);
     }
 }

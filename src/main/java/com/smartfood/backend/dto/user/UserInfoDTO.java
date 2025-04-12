@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Schema(name = "UserInfoDTO", description = "用户信息数据传输对象")
 public class UserInfoDTO {
-    private String nickName;
-    private LocalDate birthday;
+    private String userName;
+    private LocalDate birthdate;
     private String gender;
+    private Double height; // 身高
 }

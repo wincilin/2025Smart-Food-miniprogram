@@ -14,9 +14,10 @@ public class UserProfileService {
 
     public void updateUserProfile(UpdateUserProfileDTO userProfileDTO,
         User user) {
-            user.setUserName(userProfileDTO.getNickName());
-            user.setBirthday(userProfileDTO.getBirthday());
+            user.setUserName(userProfileDTO.getUserName());
+            user.setBirthdate(userProfileDTO.getBirthdate());
             user.setGender(userProfileDTO.getGender());
+            user.setHeight(userProfileDTO.getHeight());
             userRepository.save(user);
     }
 }

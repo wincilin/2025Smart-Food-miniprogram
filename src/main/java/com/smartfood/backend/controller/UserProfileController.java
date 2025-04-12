@@ -17,6 +17,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -35,14 +37,15 @@ public class UserProfileController {
      * @return 更新完的用户信息
      */
 
-    @PostMapping("/info")
+    @GetMapping("/info")
     @Operation(summary = "获取用户信息", description = "获取当前登录用户的个人信息")
     public ResponseEntity<UserInfoDTO> getInfo(@AuthenticationPrincipal LoginUser loginUser) {
         User user = loginUser.getUser();
         UserInfoDTO userInfo = new UserInfoDTO();
-        userInfo.setNickName(user.getUserName());
-        userInfo.setBirthday(user.getBirthday());
+        userInfo.setUserName(user.getUserName());
+        userInfo.setBirthdate(user.getBirthdate());
         userInfo.setGender(user.getGender());
+        userInfo.setHeight(user.getHeight());
         return ResponseEntity.ok(userInfo);
     }
     

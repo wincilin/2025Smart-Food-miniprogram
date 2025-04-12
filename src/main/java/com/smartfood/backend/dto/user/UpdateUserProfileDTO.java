@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Schema(name = "UpdateUserProfileDTO", description = "用户更新个人信息的请求数据")
 public class UpdateUserProfileDTO {
-    private String nickName;
-    private LocalDate birthday;
+    private String userName;
+    private LocalDate birthdate;
     private String gender;
+    private Double height; // 身高
 }
