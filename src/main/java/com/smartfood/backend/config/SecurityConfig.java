@@ -25,6 +25,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/login").permitAll() //放行登录接口
                 .requestMatchers("/api/food/count").permitAll() //放行食物数量接口
                 .requestMatchers("/api/food/list").permitAll() //放行食物列表接口
+                .requestMatchers("/api/food/search").permitAll() //放行食物搜索接口
                 .requestMatchers("/api/photo").permitAll() //放行照片分析接口
                 .requestMatchers(
                         "/swagger-ui/**",
