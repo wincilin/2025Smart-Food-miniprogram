@@ -15,5 +15,5 @@ public class UpdateUserProfileDTO {
     private String userName;
     private LocalDate birthdate;
     private String gender;
-    private Double height; // 身高
+    private String height; // 身高
 }

@@ -25,10 +25,12 @@ public class AuthController {
 
     @PostMapping("/login")
     @Operation(summary = "微信登录", description = "使用微信小程序的code进行登录，返回用户信息和token")
-    public ResponseEntity<?> login(@RequestBody @Valid WxLoginRequestDTO wxLoginRequestDTO) {
+    public ResponseEntity<WxLoginResponseDTO> login(@RequestBody @Valid WxLoginRequestDTO wxLoginRequestDTO) {
         
         String code = wxLoginRequestDTO.getCode();
-        if (code == null) return ResponseEntity.badRequest().body("Missing code");
+        if (code == null) {
+            return ResponseEntity.badRequest().body(new WxLoginResponseDTO(null, "Missing code", false));
+        }
         
         WxLoginResponseDTO wxAuthResponseDTO = authService.loginWithWxCode(code);
         return ResponseEntity.ok(wxAuthResponseDTO);
