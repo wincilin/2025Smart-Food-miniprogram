@@ -27,18 +27,20 @@ public class DataInitializationService {
     @EventListener(ApplicationReadyEvent.class)
     public void initializeData() {
         List<FoodNutrition> allFoodNutritions = new ArrayList<>();
+        int totalProcessedFiles = 0;
+        int totalProcessedRecords = 0;
         
         // 读取20个文件
         for (int fileNum = 1; fileNum <= TOTAL_FILES; fileNum++) {
             String fileName = "data/" + fileNum + ".xlsx";
             try {
                 ClassPathResource resource = new ClassPathResource(fileName);
-                log.info("Processing file: {}", fileName);
                 
                 try (InputStream is = resource.getInputStream();
                      Workbook workbook = new XSSFWorkbook(is)) {
                     
                     Sheet sheet = workbook.getSheetAt(0);
+                    int fileRecords = 0;
                     
                     // 从第二行开始读取（跳过表头）
                     for (int i = 1; i <= sheet.getLastRowNum(); i++) {
@@ -66,16 +68,17 @@ public class DataInitializationService {
                             if (nutrition.getName() != null && !nutrition.getName().isEmpty() 
                                 && nutrition.getCalories() != null) {
                                 allFoodNutritions.add(nutrition);
-                                log.debug("Read food from file {}: {} - {} calories", 
-                                    fileName, nutrition.getName(), nutrition.getCalories());
+                                fileRecords++;
                             }
                         } catch (Exception e) {
                             log.error("Error processing row {} in file {}: {}", 
                                 i, fileName, e.getMessage());
                         }
                     }
-                    log.info("Completed processing file {}, current total records: {}", 
-                        fileName, allFoodNutritions.size());
+                    
+                    totalProcessedFiles++;
+                    totalProcessedRecords += fileRecords;
+                    log.info("Processed file {}: {} records", fileName, fileRecords);
                     
                 } catch (Exception e) {
                     log.error("Error processing file {}: {}", fileName, e.getMessage());
@@ -90,8 +93,10 @@ public class DataInitializationService {
         try {
             if (!allFoodNutritions.isEmpty()) {
                 foodNutritionRepository.saveAll(allFoodNutritions);
-                log.info("Successfully imported {} food nutrition records from {} files", 
-                    allFoodNutritions.size(), TOTAL_FILES);
+                log.info("=== Import Summary ===");
+                log.info("Total files processed: {}/{}", totalProcessedFiles, TOTAL_FILES);
+                log.info("Total records imported: {}", totalProcessedRecords);
+                log.info("====================");
             } else {
                 log.warn("No valid food nutrition records found in any of the Excel files");
             }
