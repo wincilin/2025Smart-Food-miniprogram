@@ -5,7 +5,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import com.smartfood.backend.dto.food.FoodRecordGetDTO;
-import com.smartfood.backend.entity.FoodRecord;
+import com.smartfood.backend.dto.food.FoodRecordSaveDTO;
 import com.smartfood.backend.security.LoginUser;
 import com.smartfood.backend.service.FoodRecordService;
 
@@ -23,7 +23,7 @@ public class FoodRecordController {
 
     @PostMapping
     @Operation(summary = "创建食物记录", description = "创建新的食物记录")
-    public ResponseEntity<String> createFoodRecord(@RequestBody FoodRecord foodRecord, @AuthenticationPrincipal LoginUser loginUser) {
+    public ResponseEntity<String> createFoodRecord(@RequestBody FoodRecordSaveDTO foodRecord, @AuthenticationPrincipal LoginUser loginUser) {
         String openid = loginUser.getUser().getOpenid();
         foodRecordService.createFoodRecord(openid, foodRecord.getFoodName(), foodRecord.getCaloriesPer100g(), foodRecord.getWeight());
         return ResponseEntity.ok("食物记录创建成功");
