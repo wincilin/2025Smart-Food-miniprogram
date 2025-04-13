@@ -17,4 +17,4 @@ public class FoodSearchController {
     public List<FoodNutrition> searchFood(@RequestParam(required = false) String keyword) {
         return foodSearchService.searchFoodByKeyword(keyword);
     }
-} 
+}
