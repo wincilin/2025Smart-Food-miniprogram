@@ -1,4 +1,4 @@
-package com.smartfood.backend.dto;
+package com.smartfood.backend.dto.food;
 
 import lombok.Data;
 import java.util.List;

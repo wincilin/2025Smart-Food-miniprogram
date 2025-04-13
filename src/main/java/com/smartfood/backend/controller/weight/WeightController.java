@@ -1,4 +1,4 @@
-package com.smartfood.backend.controller;
+package com.smartfood.backend.controller.weight;
 
 import java.util.List;
 

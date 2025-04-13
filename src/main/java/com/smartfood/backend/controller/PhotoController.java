@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.smartfood.backend.dto.FoodAnalysisResult;
+import com.smartfood.backend.dto.food.FoodAnalysisResult;
 import com.smartfood.backend.service.PhotoAnalysisService;
 
 import lombok.RequiredArgsConstructor;

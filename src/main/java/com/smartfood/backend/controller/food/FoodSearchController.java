@@ -1,4 +1,4 @@
-package com.smartfood.backend.controller;
+package com.smartfood.backend.controller.food;
 
 import org.springframework.web.bind.annotation.*;
 import com.smartfood.backend.entity.FoodNutrition;

@@ -1,4 +1,4 @@
-package com.smartfood.backend.controller;
+package com.smartfood.backend.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
