@@ -1,6 +1,8 @@
 package com.smartfood.backend.service;
 
 import org.springframework.stereotype.Service;
+
+import com.smartfood.backend.dto.food.FoodRecordGetDTO;
 import com.smartfood.backend.entity.FoodRecord;
 import com.smartfood.backend.repository.FoodRecordRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +33,17 @@ public class FoodRecordService {
         return foodRecordRepository.save(record);
     }
 
-    public List<FoodRecord> getUserFoodRecords(String openid) {
-        return foodRecordRepository.findByOpenidOrderByRecordTimeDesc(openid);
+    public List<FoodRecordGetDTO> getUserFoodRecords(String openid) {
+        List<FoodRecord> foodRecords = foodRecordRepository.findByOpenidOrderByRecordTimeDesc(openid);
+        List<FoodRecordGetDTO> foodRecordGetDTOs = foodRecords.stream()
+                .map(record -> new FoodRecordGetDTO(
+                        record.getId(),
+                        record.getFoodName(),
+                        record.getCaloriesPer100g(),
+                        record.getWeight(),
+                        record.getRecordTime(),
+                        record.getTotalCalories()))
+                .toList();
+        return foodRecordGetDTOs;
     }
 } 

@@ -3,6 +3,8 @@ package com.smartfood.backend.controller.food;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import com.smartfood.backend.dto.food.FoodRecordGetDTO;
 import com.smartfood.backend.entity.FoodRecord;
 import com.smartfood.backend.security.LoginUser;
 import com.smartfood.backend.service.FoodRecordService;
@@ -28,8 +30,9 @@ public class FoodRecordController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<List<FoodRecord>> getUserFoodRecords(@AuthenticationPrincipal LoginUser loginUser) {
+    public ResponseEntity<List<FoodRecordGetDTO>> getUserFoodRecords(@AuthenticationPrincipal LoginUser loginUser) {
         String openid = loginUser.getUser().getOpenid();
-        return ResponseEntity.ok(foodRecordService.getUserFoodRecords(openid));
+        List<FoodRecordGetDTO> foodRecords = foodRecordService.getUserFoodRecords(openid);
+        return ResponseEntity.ok(foodRecords);
     }
 } 
