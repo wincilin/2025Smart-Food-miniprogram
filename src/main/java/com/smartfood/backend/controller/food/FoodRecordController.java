@@ -10,7 +10,7 @@ import com.smartfood.backend.security.LoginUser;
 import com.smartfood.backend.service.FoodRecordService;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import java.util.List;
 
@@ -23,9 +23,9 @@ public class FoodRecordController {
 
     @PostMapping
     @Operation(summary = "创建食物记录", description = "创建新的食物记录")
-    public ResponseEntity<String> createFoodRecord(@RequestBody FoodRecordSaveDTO foodRecord, @AuthenticationPrincipal LoginUser loginUser) {
+    public ResponseEntity<String> createFoodRecord(@RequestBody @Valid FoodRecordSaveDTO foodRecordSaveDTO, @AuthenticationPrincipal LoginUser loginUser) {
         String openid = loginUser.getUser().getOpenid();
-        foodRecordService.createFoodRecord(openid, foodRecord.getFoodName(), foodRecord.getCaloriesPer100g(), foodRecord.getWeight());
+        foodRecordService.createFoodRecord(openid, foodRecordSaveDTO.getFoodName(), foodRecordSaveDTO.getCaloriesPer100g(), foodRecordSaveDTO.getWeight());
         return ResponseEntity.ok("食物记录创建成功");
     }
 
