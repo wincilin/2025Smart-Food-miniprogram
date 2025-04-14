@@ -1,4 +1,4 @@
-package com.smartfood.backend.service;
+package com.smartfood.backend.service.food;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -7,7 +7,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import com.smartfood.backend.entity.FoodNutrition;
-import com.smartfood.backend.repository.FoodNutritionRepository;
+import com.smartfood.backend.repository.food.FoodNutritionRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

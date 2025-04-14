@@ -11,7 +11,7 @@ import com.smartfood.backend.dto.user.UpdateUserProfileDTO;
 import com.smartfood.backend.dto.user.UserInfoDTO;
 import com.smartfood.backend.model.User;
 import com.smartfood.backend.security.LoginUser;
-import com.smartfood.backend.service.UserProfileService;
+import com.smartfood.backend.service.user.UserProfileService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

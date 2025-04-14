@@ -1,8 +1,9 @@
-package com.smartfood.backend.service;
+package com.smartfood.backend.service.food;
 
 import org.springframework.stereotype.Service;
 import com.smartfood.backend.entity.FoodNutrition;
-import com.smartfood.backend.repository.FoodNutritionRepository;
+import com.smartfood.backend.repository.food.FoodNutritionRepository;
+
 import lombok.RequiredArgsConstructor;
 import java.util.List;
 
