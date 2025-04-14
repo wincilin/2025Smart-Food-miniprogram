@@ -11,7 +11,7 @@ import com.smartfood.backend.dto.ApiResponse;
 import com.smartfood.backend.dto.weight.WeightGoalRequestDTO;
 import com.smartfood.backend.model.User;
 import com.smartfood.backend.security.LoginUser;
-import com.smartfood.backend.service.WeightGoalService;
+import com.smartfood.backend.service.weight.WeightGoalService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;

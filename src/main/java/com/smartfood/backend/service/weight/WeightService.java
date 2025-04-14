@@ -1,4 +1,4 @@
-package com.smartfood.backend.service;
+package com.smartfood.backend.service.weight;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,7 +11,7 @@ import com.smartfood.backend.dto.weight.WeightRequestDTO;
 import com.smartfood.backend.dto.weight.WeightResponseDTO;
 import com.smartfood.backend.model.User;
 import com.smartfood.backend.model.WeightData;
-import com.smartfood.backend.repository.WeightRepository;
+import com.smartfood.backend.repository.weight.WeightRepository;
 
 @Service
 public class WeightService {

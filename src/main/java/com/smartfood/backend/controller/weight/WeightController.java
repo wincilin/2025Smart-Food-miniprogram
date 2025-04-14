@@ -12,7 +12,7 @@ import com.smartfood.backend.dto.weight.WeightRequestDTO;
 import com.smartfood.backend.dto.weight.WeightResponseDTO;
 import com.smartfood.backend.model.User;
 import com.smartfood.backend.security.LoginUser;
-import com.smartfood.backend.service.WeightService;
+import com.smartfood.backend.service.weight.WeightService;
 
 import io.swagger.v3.oas.annotations.Operation;
 

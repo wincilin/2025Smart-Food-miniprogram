@@ -6,13 +6,20 @@ import org.springframework.web.bind.annotation.*;
 
 import com.smartfood.backend.dto.food.FoodRecordGetDTO;
 import com.smartfood.backend.dto.food.FoodRecordSaveDTO;
+import com.smartfood.backend.model.User;
 import com.smartfood.backend.security.LoginUser;
-import com.smartfood.backend.service.FoodRecordService;
+import com.smartfood.backend.service.food.FoodRecordService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @RestController
 @RequestMapping("/api/food/record")
@@ -35,4 +42,13 @@ public class FoodRecordController {
         List<FoodRecordGetDTO> foodRecords = foodRecordService.getUserFoodRecords(openid);
         return ResponseEntity.ok(foodRecords);
     }
+
+    @GetMapping("/today")
+    public ResponseEntity<Double> getTodaySumCalories(@AuthenticationPrincipal LoginUser loginUser) {
+        User user = loginUser.getUser();
+        String today = LocalDate.now(ZoneId.of("Asia/Shanghai")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        Double todayCalories = foodRecordService.getCertainDayCumCalories(user.getOpenid(), today);
+        return ResponseEntity.ok(todayCalories);
+    }
+    
 } 

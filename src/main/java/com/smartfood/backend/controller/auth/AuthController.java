@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smartfood.backend.dto.auth.WxLoginResponseDTO;
+import com.smartfood.backend.service.auth.WxAuthService;
 import com.smartfood.backend.dto.auth.WxLoginRequestDTO;
-import com.smartfood.backend.service.WxAuthService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;

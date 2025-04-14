@@ -1,4 +1,4 @@
-package com.smartfood.backend.repository;
+package com.smartfood.backend.repository.weight;
 
 import org.springframework.stereotype.Repository;
 

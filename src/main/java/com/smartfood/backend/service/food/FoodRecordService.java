@@ -1,10 +1,11 @@
-package com.smartfood.backend.service;
+package com.smartfood.backend.service.food;
 
 import org.springframework.stereotype.Service;
 
 import com.smartfood.backend.dto.food.FoodRecordGetDTO;
 import com.smartfood.backend.entity.FoodRecord;
-import com.smartfood.backend.repository.FoodRecordRepository;
+import com.smartfood.backend.repository.food.FoodRecordRepository;
+
 import lombok.RequiredArgsConstructor;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -48,5 +49,12 @@ public class FoodRecordService {
                         record.getTotalCalories()))
                 .toList();
         return foodRecordGetDTOs;
+    }
+
+    public Double getCertainDayCumCalories(String openid, String date) {
+        List<FoodRecord> records = foodRecordRepository.findByOpenidAndRecordTimeStartingWith(openid, date);
+        return records.stream()
+                .mapToDouble(FoodRecord::getTotalCalories)
+                .sum();
     }
 } 

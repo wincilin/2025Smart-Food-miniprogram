@@ -1,4 +1,4 @@
-package com.smartfood.backend.service;
+package com.smartfood.backend.service.auth;
 
 import java.io.IOException;
 import javax.net.ssl.*;

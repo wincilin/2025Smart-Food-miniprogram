@@ -1,4 +1,4 @@
-package com.smartfood.backend.service;
+package com.smartfood.backend.service.weight;
 
 import java.util.Optional;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.smartfood.backend.dto.weight.WeightGoalRequestDTO;
 import com.smartfood.backend.model.User;
 import com.smartfood.backend.model.WeightGoal;
-import com.smartfood.backend.repository.WeightGoalRepository;
+import com.smartfood.backend.repository.weight.WeightGoalRepository;
 
 @Service
 
@@ -23,7 +23,7 @@ public class WeightGoalService {
         goal.setTargetWeight(null == weightGoalRequestDTO.getTargetWeight() ? null : weightGoalRequestDTO.getTargetWeight());
         goal.setStartWeight(null == weightGoalRequestDTO.getStartWeight() ? null : weightGoalRequestDTO.getStartWeight());
         goal.setCurrentWeight(null == weightGoalRequestDTO.getCurrentWeight() ? null : weightGoalRequestDTO.getCurrentWeight());
-
+        goal.setUser(user);
         weightGoalRepository.save(goal);
     }
 

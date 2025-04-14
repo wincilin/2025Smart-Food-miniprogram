@@ -2,7 +2,8 @@ package com.smartfood.backend.controller.food;
 
 import org.springframework.web.bind.annotation.*;
 import com.smartfood.backend.entity.FoodNutrition;
-import com.smartfood.backend.service.FoodSearchService;
+import com.smartfood.backend.service.food.FoodSearchService;
+
 import lombok.RequiredArgsConstructor;
 import java.util.List;
 

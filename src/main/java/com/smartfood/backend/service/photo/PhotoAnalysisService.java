@@ -1,4 +1,4 @@
-package com.smartfood.backend.service;
+package com.smartfood.backend.service.photo;
 
 import java.util.Map;
 import java.util.Base64;
