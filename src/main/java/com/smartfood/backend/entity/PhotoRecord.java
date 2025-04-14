@@ -5,7 +5,10 @@ import java.util.Map;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.smartfood.backend.util.MapToJsonConverter;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -40,8 +43,10 @@ public class PhotoRecord {
     /**
      * 分析结果（例如：菜名）
      */
-    @Column(name = "food_candidates", nullable = false)
-    private Map<String,Object> foodCandidates;
+    @Lob
+    @Convert(converter = MapToJsonConverter.class)
+    @Column(name = "food_candidates", columnDefinition = "LONGTEXT")
+    private Map<String, Object> foodCandidates;
 
     /**
      * 拍摄时间 / 上传时间
