@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.smartfood.backend.dto.food.FoodAnalysisResult;
+import com.smartfood.backend.service.CosUploadService;
 import com.smartfood.backend.service.photo.PhotoAnalysisService;
 import com.smartfood.backend.service.photo.PhotoRecordService;
 import com.smartfood.backend.dto.photo.PhotoRecordsResponseDTO;
@@ -31,6 +32,7 @@ public class PhotoController {
     
     private final PhotoAnalysisService photoAnalysisService;
     private final PhotoRecordService photoRecordService;
+    private final CosUploadService cosUploadService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> analyzePhoto(@RequestPart("file") MultipartFile file,@AuthenticationPrincipal LoginUser loginUser) {
@@ -68,7 +70,8 @@ public class PhotoController {
             PhotoRecord photoRecord = new PhotoRecord();
             photoRecord.setOpenid(openid);
             photoRecord.setFoodCandidates(rawResult);
-            photoRecord.setImageBase64(Base64.getEncoder().encodeToString(file.getBytes()));
+            String imageUrl = cosUploadService.upload(file);
+            photoRecord.setImageUrl(imageUrl);
             photoRecordService.savePhotoRecord(photoRecord);
             
             return ResponseEntity.ok(rawResult);

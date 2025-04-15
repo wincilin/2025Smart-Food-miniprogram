@@ -36,9 +36,12 @@ public class PhotoRecord {
     /**
      * 图片内容（Base64 编码）
      */
-    @Lob // 表示大文本字段，配合 @Column(columnDefinition) 可选
-    @Column(name = "image_base64", nullable = false, columnDefinition = "LONGTEXT")
-    private String imageBase64;
+    // @Lob // 表示大文本字段，配合 @Column(columnDefinition) 可选
+    // @Column(name = "image_base64", nullable = false, columnDefinition = "LONGTEXT")
+    // private String imageBase64;
+    @Column(name = "image_url", nullable = false)
+    private String imageUrl;
+
 
     /**
      * 分析结果（例如：菜名）

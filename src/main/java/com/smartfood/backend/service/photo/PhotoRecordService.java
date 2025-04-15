@@ -23,7 +23,7 @@ public class PhotoRecordService {
 
         return photoRecords.stream().map(record -> new PhotoRecordsResponseDTO(
                 record.getId(),
-                record.getImageBase64(),
+                record.getImageUrl(),
                 record.getFoodCandidates(),
                 record.getCreatedAt().format(formatter) // LocalDateTime -> String
         )).collect(Collectors.toList());
