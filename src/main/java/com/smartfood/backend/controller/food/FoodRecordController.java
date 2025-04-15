@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.smartfood.backend.dto.food.FoodRecordGetDTO;
 import com.smartfood.backend.dto.food.FoodRecordSaveDTO;
+import com.smartfood.backend.dto.food.FoodTodayTotalCaloriesDTO;
 import com.smartfood.backend.model.User;
 import com.smartfood.backend.security.LoginUser;
 import com.smartfood.backend.service.food.FoodRecordService;
@@ -44,11 +45,13 @@ public class FoodRecordController {
     }
 
     @GetMapping("/today")
-    public ResponseEntity<Double> getTodaySumCalories(@AuthenticationPrincipal LoginUser loginUser) {
+    public ResponseEntity<FoodTodayTotalCaloriesDTO> getTodaySumCalories(@AuthenticationPrincipal LoginUser loginUser) {
         User user = loginUser.getUser();
         String today = LocalDate.now(ZoneId.of("Asia/Shanghai")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         Double todayCalories = foodRecordService.getCertainDayCumCalories(user.getOpenid(), today);
-        return ResponseEntity.ok(todayCalories);
+        FoodTodayTotalCaloriesDTO foodTodayTotalCaloriesDTO = new FoodTodayTotalCaloriesDTO();
+        foodTodayTotalCaloriesDTO.setTotalCalories(todayCalories);
+        return ResponseEntity.ok(foodTodayTotalCaloriesDTO);
     }
     
 } 

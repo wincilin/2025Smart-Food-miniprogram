@@ -2,12 +2,15 @@ package com.smartfood.backend.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,9 +20,12 @@ import com.smartfood.backend.service.CosUploadService;
 import com.smartfood.backend.service.photo.PhotoAnalysisService;
 import com.smartfood.backend.service.photo.PhotoRecordService;
 import com.smartfood.backend.dto.photo.PhotoRecordsResponseDTO;
+import com.smartfood.backend.dto.photo.PhotoSearchHistoryPageDTO;
 import com.smartfood.backend.entity.PhotoRecord;
 import com.smartfood.backend.security.LoginUser;
 import java.util.Base64;
+import java.time.format.DateTimeFormatter;
+import org.springframework.data.domain.Page;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -85,9 +91,30 @@ public class PhotoController {
     }
 
     @GetMapping("/searchHistory")
-    public ResponseEntity<List<PhotoRecordsResponseDTO>> getPhotoSearchHistory(@AuthenticationPrincipal LoginUser loginUser) {
+    public ResponseEntity<PhotoSearchHistoryPageDTO> getPhotoSearchHistory(
+            @AuthenticationPrincipal LoginUser loginUser,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
         String openid = loginUser.getUser().getOpenid();
-        List<PhotoRecordsResponseDTO> searchHistory = photoRecordService.getPhotoSearchHistory(openid);
-        return ResponseEntity.ok(searchHistory);
+        Page<PhotoRecord> photoPage = photoRecordService.getPhotoSearchHistoryPage(openid, page, size);
+
+        List<PhotoRecordsResponseDTO> dtoList = photoPage.getContent().stream().map(record -> {
+            return new PhotoRecordsResponseDTO(
+                record.getId(),
+                record.getImageUrl(),
+                record.getFoodCandidates(),
+                record.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+            );
+        }).collect(Collectors.toList());
+
+        PhotoSearchHistoryPageDTO result = new PhotoSearchHistoryPageDTO(
+            photoPage.getTotalPages(),
+            photoPage.getTotalElements(),
+            photoPage.getNumber(),
+            dtoList
+        );
+
+        return ResponseEntity.ok(result);
     }
 }

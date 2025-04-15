@@ -32,9 +32,10 @@ public class WeightGoalService {
         if (existingGoal.isPresent()) {
             WeightGoal goal = existingGoal.get();
             return new WeightGoalRequestDTO(
-                goal.getTargetWeight() == null ? 0.0 : goal.getTargetWeight(),
+                
                 goal.getStartWeight() == null ? 0.0 : goal.getStartWeight(),
-                goal.getCurrentWeight() == null ? 0.0 : goal.getCurrentWeight()
+                goal.getCurrentWeight() == null ? 0.0 : goal.getCurrentWeight(),
+                goal.getTargetWeight() == null ? 0.0 : goal.getTargetWeight()
             );
             
         } else {

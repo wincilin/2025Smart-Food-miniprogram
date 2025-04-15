@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.smartfood.backend.dto.photo.PhotoRecordsResponseDTO;
@@ -17,17 +21,22 @@ public class PhotoRecordService {
     @Autowired
     private PhotoRecordRepository photoRecordRepository;
 
-    public List<PhotoRecordsResponseDTO> getPhotoSearchHistory(String openid) {
-        List<PhotoRecord> photoRecords = photoRecordRepository.findByOpenidOrderByCreatedAtDesc(openid);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public Page<PhotoRecord> getPhotoSearchHistoryPage(String openid, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<PhotoRecord> photoRecordsPage = photoRecordRepository.findByOpenidOrderByCreatedAtDesc(openid, pageable);
 
-        return photoRecords.stream().map(record -> new PhotoRecordsResponseDTO(
-                record.getId(),
-                record.getImageUrl(),
-                record.getFoodCandidates(),
-                record.getCreatedAt().format(formatter) // LocalDateTime -> String
-        )).collect(Collectors.toList());
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+        // List<PhotoRecordsResponseDTO> dtoList = photoRecordsPage.getContent().stream().map(record -> new PhotoRecordsResponseDTO(
+        //         record.getId(),
+        //         record.getImageUrl(),
+        //         record.getFoodCandidates(),
+        //         record.getCreatedAt().format(formatter)
+        // )).collect(Collectors.toList());
+
+        // return new PageImpl<>(dtoList, pageable, photoRecordsPage.getTotalElements())
+        ;
+        return photoRecordsPage; // 返回原始的 PhotoRecord 对象列表
     }
 
     public void savePhotoRecord(PhotoRecord photoRecord) {
