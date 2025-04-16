@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.smartfood.backend.dto.ApiResponse;
 import com.smartfood.backend.dto.user.UpdateUserProfileDTO;
 import com.smartfood.backend.dto.user.UserInfoDTO;
-import com.smartfood.backend.model.User;
+import com.smartfood.backend.entity.User;
 import com.smartfood.backend.security.LoginUser;
 import com.smartfood.backend.service.user.UserProfileService;
 

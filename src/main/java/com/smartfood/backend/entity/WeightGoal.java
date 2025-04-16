@@ -1,4 +1,4 @@
-package com.smartfood.backend.model;
+package com.smartfood.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

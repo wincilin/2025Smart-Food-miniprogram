@@ -1,6 +1,6 @@
 package com.smartfood.backend.security;
 
-import com.smartfood.backend.model.User;
+import com.smartfood.backend.entity.User;
 import com.smartfood.backend.repository.UserRepository;
 
 import jakarta.servlet.FilterChain;

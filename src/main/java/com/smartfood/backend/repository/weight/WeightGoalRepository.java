@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.smartfood.backend.model.User;
-import com.smartfood.backend.model.WeightGoal;
+import com.smartfood.backend.entity.User;
+import com.smartfood.backend.entity.WeightGoal;
 
 @Repository
 public interface WeightGoalRepository extends JpaRepository<WeightGoal, Long> {

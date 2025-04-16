@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.smartfood.backend.dto.user.UpdateUserProfileDTO;
-import com.smartfood.backend.model.User;
+import com.smartfood.backend.entity.User;
 import com.smartfood.backend.repository.UserRepository;
 
 @Service

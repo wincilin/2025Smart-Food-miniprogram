@@ -6,7 +6,7 @@ import java.util.Collections;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.smartfood.backend.model.User;
+import com.smartfood.backend.entity.User;
 
 public class LoginUser implements UserDetails{
     private final User user;

@@ -1,4 +1,4 @@
-package com.smartfood.backend.model;
+package com.smartfood.backend.entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -60,4 +60,10 @@ public class CosUploadService {
         // 拼接访问 URL（视你的自定义域名情况）
         return "https://" + bucketName + ".cos." + region + ".myqcloud.com/" + key;
     }
+
+    public COSClient getCosClient() {
+        COSCredentials cred = new BasicCOSCredentials(secretId, secretKey);
+        ClientConfig clientConfig = new ClientConfig(new Region(region));
+        return new COSClient(cred, clientConfig);
+    }
 }

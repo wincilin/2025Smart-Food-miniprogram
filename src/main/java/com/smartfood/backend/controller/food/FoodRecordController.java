@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import com.smartfood.backend.dto.food.FoodRecordGetDTO;
 import com.smartfood.backend.dto.food.FoodRecordSaveDTO;
 import com.smartfood.backend.dto.food.FoodTodayTotalCaloriesDTO;
-import com.smartfood.backend.model.User;
+import com.smartfood.backend.entity.User;
 import com.smartfood.backend.security.LoginUser;
 import com.smartfood.backend.service.food.FoodRecordService;
 

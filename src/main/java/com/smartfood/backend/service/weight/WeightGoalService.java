@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.smartfood.backend.dto.weight.WeightGoalRequestDTO;
-import com.smartfood.backend.model.User;
-import com.smartfood.backend.model.WeightGoal;
+import com.smartfood.backend.entity.User;
+import com.smartfood.backend.entity.WeightGoal;
 import com.smartfood.backend.repository.weight.WeightGoalRepository;
 
 @Service

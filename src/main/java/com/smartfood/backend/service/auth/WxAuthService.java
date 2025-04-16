@@ -6,7 +6,7 @@ import java.security.cert.X509Certificate;
 
 import com.alibaba.fastjson.JSONObject;
 import com.smartfood.backend.dto.auth.WxLoginResponseDTO;
-import com.smartfood.backend.model.User;
+import com.smartfood.backend.entity.User;
 import com.smartfood.backend.repository.UserRepository;
 import com.smartfood.backend.security.JwtUtil;
 import com.smartfood.backend.security.LoginUser;

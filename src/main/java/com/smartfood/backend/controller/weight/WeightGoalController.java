@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.smartfood.backend.dto.ApiResponse;
 import com.smartfood.backend.dto.weight.WeightGoalRequestDTO;
-import com.smartfood.backend.model.User;
+import com.smartfood.backend.entity.User;
 import com.smartfood.backend.security.LoginUser;
 import com.smartfood.backend.service.weight.WeightGoalService;
 

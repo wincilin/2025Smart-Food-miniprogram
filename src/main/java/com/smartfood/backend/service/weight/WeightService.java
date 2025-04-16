@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.smartfood.backend.dto.weight.WeightRequestDTO;
 import com.smartfood.backend.dto.weight.WeightResponseDTO;
-import com.smartfood.backend.model.User;
-import com.smartfood.backend.model.WeightData;
+import com.smartfood.backend.entity.User;
+import com.smartfood.backend.entity.WeightData;
 import com.smartfood.backend.repository.weight.WeightRepository;
 
 @Service

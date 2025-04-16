@@ -3,9 +3,10 @@ package com.smartfood.backend.repository;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.smartfood.backend.model.User;
+import com.smartfood.backend.entity.User;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
